@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+    {% block title %}Ready ...{% endblock %}
+    
+    {% block extrajavascripts %}
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+        {% javascripts '@AppBundle/Resources/public/js/challenge/*' %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    {% endblock %}
+
+    {% block body %}
+        <h1 class="text-center titleChallenge">Challenges available :</h1>
+        <div class="col-md-12">
+            <div class="row">
+                {% for challenge in challenges  %}
+                        
+                    <div class="col-sm-5 col-md-3 boxes">
+                        <div class="thumbnail">
+                            <div class="caption">
+                                <h3 class="text-center">{{ challenge.name }}</h3>
+                                {% set i = 0 %}
+                                {% set somme = 0 %}
+                                {% for key, vote in votes if vote.challengeId.id == challenge.id %}
+                                    {% set i = i + 1 %}
+                                    {% set somme = (vote.vote+somme) %}       
+                                    {% set moyenne = 0 %}
+                                {% endfor %}
+                                {% if somme == 0 %}
+                                    <p class="text-center">No vote for this challenge !</p>
+                                {% else %}
+                                    {% set moyenne = somme / i %}
+                                    {% if moyenne >= 1 and moyenne < 2 %}
+                                        <div class="text-center"><img class="text-center" src={{asset('img/etoile.png')}}></div>
+                                    {% elseif moyenne >= 2 and moyenne < 3 %}
+                                        <div class="text-center"><img class="text-center" src={{asset('img/etoile2.png')}}></div>
+                                    {% elseif moyenne >= 3 and moyenne < 4 %}
+                                        <div class="text-center"><img class="text-center" src={{asset('img/etoile3.png')}}></div>
+                                    {% elseif moyenne >= 4 and moyenne < 5 %}
+                                        <div class="text-center"><img class="text-center" src={{asset('img/etoile4.png')}}></div>
+                                    {% else %}
+                                        <div class="text-center"><img class="text-center" src={{asset('img/etoile.png')}}></div>
+                                    {% endif %}
+                                {% endif %}
+                                   
+                                <p class="text-center">Challenge made by <b>{{ challenge.creator }}</b></p>
+                                <div class="text-center"><a href="{{path('game', { 'id': challenge.id })}}">
+                                    <button id="{{ challenge.id }}" type="button" class="btn btn-primary btn-md sendCoords" data-coords="{{ challenge.coords }}">Go to this challenge FFS !</button>
+                                </a></div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+    {% endblock %}

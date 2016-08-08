@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome to GGRrrrr !{% endblock %}</title>
+
+        {% block stylesheets %}
+            {% stylesheets 'bundles/app/css/*' filter='cssrewrite' %}
+                <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
+
+        {% block extracss %}<link rel="stylesheet" href="{{ asset('css/style.css')}}" />{% endblock %}
+
+    </head>
+    <body class="{% block bodyclass %}{% endblock %}">
+        
+        {% block navbar %}
+            <nav class="navbar navbar-default navbar-fixed-top">
+              <div class="container">
+                <div id="navbar" class="navbar-collapse collapse">
+                  <ul class="nav navbar-nav">
+                    <li class="home text-center"><a href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home"></a></li>
+                  </ul>
+                  <ul class="nav navbar-nav navbar-right">
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                    <li><a>Welcome <b>{{ app.user.username }}</b></a></li>
+                    <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li> 
+                    {% else %}
+                    <li><a href="{{ path('fos_user_security_login') }}">Login</a></li>
+                    <li><a href="{{ path('fos_user_registration_register') }}">Register</a></li>
+                    {% endif %}               
+                  </ul>
+                </div><!--/.nav-collapse -->
+              </div>
+            </nav>
+        {% endblock %}
+
+        {% block javascripts %}
+            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+            {% block extrajavascripts %}{% endblock %}
+        {% endblock %}
+
+        {% block body %}{% endblock %}
+    </body>
+</html>

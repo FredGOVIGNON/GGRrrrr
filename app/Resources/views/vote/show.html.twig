@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Vote</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ vote.id }}</td>
+            </tr>
+            <tr>
+                <th>Challengeid</th>
+                <td>{{ vote.challengeId }}</td>
+            </tr>
+            <tr>
+                <th>Userid</th>
+                <td>{{ vote.userId }}</td>
+            </tr>
+            <tr>
+                <th>Vote</th>
+                <td>{{ vote.vote }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('vote_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('vote_edit', { 'id': vote.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

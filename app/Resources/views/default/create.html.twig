@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+{% block navbar %}{% endblock %}
+    
+{% block extrajavascripts %}
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=AIzaSyBasoY5XOYA82Kgb26TJGqhiTR8l2sh0ZY&sensor=false&libraries=geometry'></script>
+    {% javascripts '@AppBundle/Resources/public/js/create/*' %}
+        <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+
+{% block extracss %}
+    <link rel="stylesheet" href="{{ asset('css/stylejeu.css')}}" />
+{% endblock %}
+
+{% block body %}
+    <div id="form-container" class="set-position">
+    <h4>Create your own challenge !</h4>
+        {{ form_start(form) }}
+        <p class="step 1 active"><input type="text" class="inputs-set" name="RoundOne" id="1" placeholder="Round 1" required="require"/> <button class="1 go-to">Go to</button><button class="1 set">Set</button></p>
+        <p class="step 2"><input type="text" class="inputs-set" name="RoundTwo" id="2" placeholder="Round 2" required="require"/> <button class="2 go-to">Go to</button><button class="2 set">Set</button></p>
+        <p class="step 3"><input type="text" class="inputs-set" name="RoundThree" id="3" placeholder="Round 3" required="require"/> <button class="3 go-to">Go to</button><button class="3 set">Set</button></p>
+        <p class="step 4"><input type="text" class="inputs-set" name="RoundFour" id="4" placeholder="Round 4" required="require"/> <button class="4 go-to">Go to</button><button class="4 set">Set</button></p>
+        <p class="step 5"><input type="text" class="inputs-set" name="RoundFive" id="5" placeholder="Round 5" required="require"/> <button class="5 go-to">Go to</button><button class="5 set">Set</button></p>
+            {{ form_widget(form.name, {'attr': {'placeholder': 'Name','class':'inputs-set2'}})}}
+            <button name="submitAction" class="btn-save" value="save" type="submit">Save</button>
+        {{ form_end(form) }}
+    </div>
+    <div id="map-container"></div>
+{% endblock %}
