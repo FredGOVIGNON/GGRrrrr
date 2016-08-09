@@ -7,18 +7,22 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\Common\Collections\ArrayCollection;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 use AppBundle\Entity\Score;
+
+use AppBundle\Entity\Challenge;
 
 class GameController extends Controller
 {
     /**
-     * @Route("/game/{id}", name="game")
+     * @Route("/challenge/{id}", requirements={"id" = "\d+"}, defaults={"id" = 1}, name="game")
      */
-    public function gameAction($id)
+    public function gameAction(Challenge $Challenge)
     {
-        // replace this example code with whatever you need
-        return $this->render('default/game.html.twig', array('id'=>$id));
+        $challengeId = $Challenge->getId();
+
+        return $this->render('default/game.html.twig', array('id'=>$challengeId));
     }
 
     /**
@@ -95,15 +99,13 @@ class GameController extends Controller
     }
 
     /**
-     * @Route("/score/{id}", options = { "expose" = true }, name="score")
+     * @Route("/score/challenge/{challenge_id}", options = { "expose" = true }, name="score")
+     * @ParamConverter("score", class="AppBundle:Score", options={"repository_method" = "findByIdChallenge", "mapping": {"challenge_id": "idChallenge"}, "map_method_signature" = true})
      */
-    public function scoreAction($id)
+    public function scoreAction($score)
     {
 
-        $em = $this->getDoctrine()->getManager();
-        $challenges = $em->getRepository('AppBundle:Challenge')->findOneById($id);
-        $scores = $em->getRepository('AppBundle:Score')->findByidChallenge($challenges);
+        return $this->render('default/score.html.twig', array('scores'=>$score));
 
-        return $this->render('default/score.html.twig', array('scores'=>$scores, 'id'=>$id));
     }
 }

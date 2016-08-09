@@ -5,19 +5,10 @@
     {% endblock %}
 
     {% block body %}
-{#         <div class="container score">
-            <h2>{{ scores.0.idChallenge.name }}</h2>
-            <a href="{{path('vote_new', { 'id': id })}}"><button>Leave a note on this challenge</button></a>
-            <ul class="list-group">
-                {% for score in scores %}
-                    <li class="list-group-item"><span class="badge">{{ score.score }}</span> {{ score.idUser.username }}'s score : </li>
-                {% endfor %}
-            </ul>
-        </div> #}
 
         <div class="container score">
             <div class="panel panel-default">
-                <div class="panel-heading"><h4>Reports for {{ scores.0.idChallenge.name }}</h4></div>
+                <div class="panel-heading"><h4>Reports for {{ scores[0].idChallenge.name }}</h4></div>
                 <div class="panel-body">
                     {% for score in scores %}
                         {{ score.idUser.username }}

@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class ScoreRepository extends EntityRepository
 {
+    public function findByIdChallenge($idChallenge)
+    {
+    	$score = $this ->createQueryBuilder('score');
+
+    	$score
+    		->where('score.idChallenge = :idChallenge')
+    		->setParameter('idChallenge', $idChallenge);
+
+        return $score->getQuery()->getResult();
+    }
 }
