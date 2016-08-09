@@ -9,10 +9,6 @@
     {% endjavascripts %}
 {% endblock %}
 
-{% block extracss %}
-    <link rel="stylesheet" href="{{ asset('css/stylejeu.css')}}" />
-{% endblock %}
-
 {% block body %}
     <div id="form-container" class="set-position">
     <h4>Create your own challenge !</h4>
@@ -26,5 +22,7 @@
             <button name="submitAction" class="btn-save" value="save" type="submit">Save</button>
         {{ form_end(form) }}
     </div>
-    <div id="map-container"></div>
+    <div class="zoneMap">
+        <div id="map-container"></div>
+    </div>
 {% endblock %}

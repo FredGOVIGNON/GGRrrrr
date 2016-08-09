@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
+
 {% block navbar %}{% endblock %}
+
 {% block title %}Jouer !{% endblock %}
+
 {% block extrajavascripts %}
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
     <script type='text/javascript' src='https://maps.googleapis.com/maps/api/js?key=AIzaSyCVyB0Bp5ZfDWlcDwFzZBltJcDyp2UD5Ok&sensor=false&libraries=geometry'></script>
@@ -8,21 +11,21 @@
                 <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
 {% endblock %}
-{% block extracss %}
-    <link rel="stylesheet" href="{{ asset('css/stylejeu.css')}}" />
-{% endblock %}
+
 {% block body %}
-    <div id='content'>
-        <div id="roundEnd"></div>
-        <div id="endGame" data-id={{ id }}></div>
-        <div id='scoreBoard'>
-          <span class='round'>Current Round: <b>1/5</b></span><br/>
-          <span class='roundScore'>Last Round Score: <b>0</b></span><br/>
-          <span class='totalScore'>Total Score: <b>0</b></span>
+    <div class="zoneMap">
+        <div id='content'>
+            <div id="roundEnd"></div>
+            <div id="endGame" data-id={{ id }}></div>
+            <div id='scoreBoard'>
+              <span class='round'>Current Round: <b>1/5</b></span><br/>
+              <span class='roundScore'>Last Round Score: <b>0</b></span><br/>
+              <span class='totalScore'>Total Score: <b>0</b></span>
+            </div>
+            <div id='miniMap'></div>
+            <div id='timer'></div>
+            <div id='guessButton' class="btn btn-large btn-danger">Make Your Guess</div>
+            <div id='pano'></div>
         </div>
-        <div id='miniMap'></div>
-        <div id='timer'></div>
-        <div id='guessButton' class="btn btn-large btn-danger">Make Your Guess</div>
-        <div id='pano'></div>
     </div>
 {% endblock %}

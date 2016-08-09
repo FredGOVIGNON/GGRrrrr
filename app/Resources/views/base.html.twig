@@ -4,13 +4,13 @@
         <meta charset="UTF-8" />
         <title>{% block title %}Welcome to GGRrrrr !{% endblock %}</title>
 
+        {% block extracss %}{% endblock %}
+            
         {% block stylesheets %}
             {% stylesheets 'bundles/app/css/*' filter='cssrewrite' %}
                 <link rel="stylesheet" href="{{ asset_url }}" />
             {% endstylesheets %}
         {% endblock %}
-
-        {% block extracss %}<link rel="stylesheet" href="{{ asset('css/style.css')}}" />{% endblock %}
 
     </head>
     <body class="{% block bodyclass %}{% endblock %}">
