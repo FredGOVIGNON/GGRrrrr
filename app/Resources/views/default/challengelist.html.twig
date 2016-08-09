@@ -9,6 +9,15 @@
     {% endblock %}
 
     {% block body %}
+        {% if challenges == null %}
+            <h1 class="text-center titleChallenge">Sorry</h1>
+            <div class="text-center">
+                <h2>There is no challenge avalaible at the moment</h2>
+                <a href="{{path('create')}}">
+                    <button type="button" class="btn btn-success btn-lg sendCoords">Create one</button>
+                </a>
+            </div>
+        {% else %}
         <h1 class="text-center titleChallenge">Challenges available :</h1>
         <div class="col-md-12">
             <div class="row">
@@ -38,14 +47,38 @@
                                     {% elseif moyenne >= 4 and moyenne < 5 %}
                                         <div class="text-center"><img class="text-center" src={{asset('img/etoile4.png')}}></div>
                                     {% else %}
-                                        <div class="text-center"><img class="text-center" src={{asset('img/etoile.png')}}></div>
+                                        <div class="text-center"><img class="text-center" src={{asset('img/etoile5.png')}}></div>
                                     {% endif %}
                                 {% endif %}
                                    
                                 <p class="text-center">Challenge made by <b>{{ challenge.creator }}</b></p>
-                                <div class="text-center"><a href="{{path('game', { 'id': challenge.id })}}">
-                                    <button id="{{ challenge.id }}" type="button" class="btn btn-primary btn-md sendCoords" data-coords="{{ challenge.coords }}">Go to this challenge FFS !</button>
-                                </a></div>
+                                <div class="text-center">
+                                    <a href="{{path('game', { 'id': challenge.id })}}">
+                                        <button id="{{ challenge.id }}" type="button" class="btn btn-primary btn-md sendCoords" data-coords="{{ challenge.coords }}">Go to this challenge FFS !</button>
+                                    </a>
+                                {% if app.user.username == challenge.creator %}
+                                    <button type="button" class="btn btn-danger btn-md sendCoords" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-remove"></span></button>
+                                {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">DANGER ZONE</h4>
+                                </div>
+                                <div class="modal-body text-center">
+                                    You're about to delete the challenge "<b>{{ challenge.name }}</b>"<br>
+                                    Are you sure ?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                                    <a href="{{path('challenge_delete', { 'id':challenge.id}) }}"><button type="button" class="btn btn-primary">Yes</button></a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -53,4 +86,6 @@
 
             </div>
         </div>
+    {% endif %}
+
     {% endblock %}

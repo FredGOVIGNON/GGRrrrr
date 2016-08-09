@@ -50,4 +50,33 @@ class CreateController extends Controller
             'form' => $form->createView(),
         ));
     }
+    /**
+     * Deletes a challenge.
+     *
+     * @Route("/challenge/{id}", name="challenge_delete")
+     */
+    public function deleteAction(Request $request, Challenge $challenge)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $session = new Session();
+
+        $zechallenge = $em->getRepository('AppBundle:Challenge')->findOneById($challenge);
+        $scores = $em->getRepository('AppBundle:Score')->findByIdChallenge($zechallenge);
+        $votes = $em->getRepository('AppBundle:Vote')->findByChallengeId($zechallenge);
+
+        foreach ($votes as $vote) {
+            $em->remove($vote);
+        }
+
+        foreach ($scores as $score) {
+            $em->remove($score);
+        }
+        
+        $em->remove($challenge);
+        $em->flush();
+
+        $session->getFlashBag()->add('infos', $this->get('translator')->trans('Challenge Deleted'));
+
+        return $this->redirectToRoute('challengelist');
+    }
 }

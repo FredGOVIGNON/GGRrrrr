@@ -43,5 +43,10 @@
         {% endblock %}
 
         {% block body %}{% endblock %}
+            {% for message in app.session.flashbag.get('infos') %}
+                <div class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+            {% endfor %}
     </body>
 </html>
