@@ -39,15 +39,35 @@
                                 {% else %}
                                     {% set moyenne = somme / i %}
                                     {% if moyenne >= 1 and moyenne < 2 %}
-                                        <div class="text-center"><img class="text-center" src={{asset('img/etoile.png')}}></div>
+                                        <div class="text-center">
+                                            {% image '@AppBundle/Resources/public/img/etoile.png' %}
+                                                <img src="{{ asset_url }}" alt="One Star" />
+                                            {% endimage %}
+                                        </div>
                                     {% elseif moyenne >= 2 and moyenne < 3 %}
-                                        <div class="text-center"><img class="text-center" src={{asset('img/etoile2.png')}}></div>
+                                        <div class="text-center">
+                                            {% image '@AppBundle/Resources/public/img/etoile2.png' %}
+                                                <img src="{{ asset_url }}" alt="Two Stars" />
+                                            {% endimage %}
+                                        </div>
                                     {% elseif moyenne >= 3 and moyenne < 4 %}
-                                        <div class="text-center"><img class="text-center" src={{asset('img/etoile3.png')}}></div>
+                                        <div class="text-center">
+                                            {% image '@AppBundle/Resources/public/img/etoile3.png' %}
+                                                <img src="{{ asset_url }}" alt="Three Stars" />
+                                            {% endimage %}
+                                        </div>
                                     {% elseif moyenne >= 4 and moyenne < 5 %}
-                                        <div class="text-center"><img class="text-center" src={{asset('img/etoile4.png')}}></div>
+                                        <div class="text-center">
+                                            {% image '@AppBundle/Resources/public/img/etoile4.png' %}
+                                                <img src="{{ asset_url }}" alt="Four Stars" />
+                                            {% endimage %}
+                                        </div>
                                     {% else %}
-                                        <div class="text-center"><img class="text-center" src={{asset('img/etoile5.png')}}></div>
+                                        <div class="text-center">
+                                            {% image '@AppBundle/Resources/public/img/etoile5.png' %}
+                                                <img src="{{ asset_url }}" alt="Five Stars" />
+                                            {% endimage %}
+                                        </div>
                                     {% endif %}
                                 {% endif %}
                                    
