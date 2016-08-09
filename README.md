@@ -19,3 +19,7 @@ Développement des fonctionnalités suivantes lors du hackaton :
 
 Installation d'assetic nécessaire
 $>composer require symfony/assetic-bundle
+
+
+app.php mettre true pour que cela fonctionne en prod
+$kernel = new AppKernel('prod', true);
