@@ -21,5 +21,6 @@ Installation d'assetic nécessaire
 $>composer require symfony/assetic-bundle
 
 
-app.php mettre true pour que cela fonctionne en prod
-$kernel = new AppKernel('prod', true);
+Pour avoir le rendu en prod il faut exporter en dur les assets
+php app/console assetic:dump --env=prod
+C'est une action ponctuelle à réaliser à chaque modification des assets
