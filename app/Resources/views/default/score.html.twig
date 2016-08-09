@@ -1,42 +1,48 @@
 {% extends 'base.html.twig' %}
-    {% block title %}Score challenge {{ scores.0.idChallenge.name }}{% endblock %}
+    {% block title %}Score challenge {% if scores == null %}{% else %}{{ scores.0.idChallenge.name }}{% endif %}{% endblock %}
     
     {% block extrajavascripts %}
     {% endblock %}
 
     {% block body %}
-
-        <div class="container score">
-            <div class="panel panel-default">
-                <div class="panel-heading"><h4>Reports for {{ scores[0].idChallenge.name }}</h4></div>
-                <div class="panel-body">
-                    {% for score in scores %}
-                        {{ score.idUser.username }}
-                        {% set pourcentage = score.score * 100 / 50000 %}
-                        {% if pourcentage <= 15 %}
-                            <div class="progress">
-                              <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow={{ score.score }} aria-valuemin="0" aria-valuemax="50000" style={{ "width:"~ pourcentage ~"%" }}>
-                                {{ score.score }}
-                              </div>
-                            </div>
-                        {% elseif pourcentage <= 40 %}
-                            <div class="progress">
-                              <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow={{ score.score }} aria-valuemin="0" aria-valuemax="50000" style={{ "width:"~ pourcentage ~"%" }}>
-                                {{ score.score }}
-                              </div>
-                            </div>                        
-                        {% else %}
-                            <div class="progress">
-                              <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow={{ score.score }} aria-valuemin="0" aria-valuemax="50000" style={{ "width:"~ pourcentage ~"%" }}>
-                                {{ score.score }}
-                              </div>
-                            </div>
+        {% if scores == null %}
+            <h1 class="text-center titleChallenge">Sorry</h1>
+            <h2>There ain't any score recorded for this challenge yet</h2>
+        {% else %}
+            <div class="container score">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><h4>Reports for {{ scores.0.idChallenge.name }}</h4></div>
+                    <div class="panel-body">
+                        {% for score in scores %}
+                            {{ score.idUser.username }}
+                            {% set pourcentage = score.score * 100 / 50000 %}
+                            {% if pourcentage <= 15 %}
+                                <div class="progress">
+                                  <div class="progress-bar progress-bar-danger progress-bar-striped active" role="progressbar" aria-valuenow={{ score.score }} aria-valuemin="0" aria-valuemax="50000" style={{ "width:"~ pourcentage ~"%" }}>
+                                    {{ score.score }}
+                                  </div>
+                                </div>
+                            {% elseif pourcentage <= 40 %}
+                                <div class="progress">
+                                  <div class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" aria-valuenow={{ score.score }} aria-valuemin="0" aria-valuemax="50000" style={{ "width:"~ pourcentage ~"%" }}>
+                                    {{ score.score }}
+                                  </div>
+                                </div>                        
+                            {% else %}
+                                <div class="progress">
+                                  <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow={{ score.score }} aria-valuemin="0" aria-valuemax="50000" style={{ "width:"~ pourcentage ~"%" }}>
+                                    {{ score.score }}
+                                  </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            {% else %}
+                            <img src="{{asset('bundles/app/img/score.png')}}"><h3>You need to be logged to save your score !</h3>
                         {% endif %}
-                    {% endfor %}
-
-                </div><!--/panel-body-->
-            </div><!--/panel-->
-        </div>
+                    </div><!--/panel-body-->
+                </div><!--/panel-->
+            </div>
+        {% endif %}
 
     {% endblock %}
-
