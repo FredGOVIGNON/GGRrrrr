@@ -56,9 +56,13 @@
                                     <a href="{{path('game', { 'id': challenge.id })}}">
                                         <button id="{{ challenge.id }}" type="button" class="btn btn-primary btn-md sendCoords" data-coords="{{ challenge.coords }}">Go to this challenge FFS !</button>
                                     </a>
-                                {% if app.user.username == challenge.creator %}
-                                    <button type="button" class="btn btn-danger btn-md sendCoords" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-remove"></span></button>
-                                {% endif %}
+                                    {% if app.user.username is defined %}
+                                        {% if app.user.username == challenge.creator %}
+                                            <button type="button" class="btn btn-danger btn-md sendCoords" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-remove"></span></button>
+                                        {% endif %}
+                                    {% else %}
+                                    
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
