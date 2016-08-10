@@ -53,7 +53,7 @@ class CreateController extends Controller
     /**
      * Deletes a challenge.
      *
-     * @Route("/challenge/{id}", name="challenge_delete")
+     * @Route("/challenge/{id}", options = { "expose" = true }, name="challenge_delete")
      */
     public function deleteAction(Request $request, Challenge $challenge)
     {

@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+    {% block extrajavascripts %}
+    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+    {% endblock %}
+{% block body %}
+    <div class='container'>
+        <div class='jumbotron'>
+            <h3>{{ user.username }}</h3>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                    <tr>
+                        <th>Firstname</th>
+                        <td>{{ user.firstname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Lasttname</th>
+                        <td>{{ user.lastname }}</td>
+                    </tr>
+                    <tr>
+                        <th>Birthdate</th>
+                        <td>{{ user.birthdate }}</td>
+                    </tr>
+                    <tr>
+                        <th>Country</th>
+                        <td>{{ user.country }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class='row'>
+                <div class='col-md-6'>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-remove"></span></button>
+                </div>
+                <div class='col-md-6'>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">DANGER ZONE</h4>
+                                </div>
+                                <div class="modal-body text-center">
+                                    You're about to delete the challenge <br>
+                                    Are you sure ?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                                    <a href="{{path('user_delete', { 'id':user.id}) }}"><button type="button" class="btn btn-primary">Yes</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+    <ul>
+{#         <li>
+            <a href="{{ path('vote_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('vote_edit', { 'id': vote.id }) }}">Edit</a>
+        </li> #}
+    </ul>
+
+
+
+{% endblock %}

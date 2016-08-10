@@ -3,6 +3,9 @@
     
     {% block extrajavascripts %}
     <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+        {% javascripts '@AppBundle/Resources/public/js/*' %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}    
         {% javascripts '@AppBundle/Resources/public/js/challenge/*' %}
             <script src="{{ asset_url }}"></script>
         {% endjavascripts %}
@@ -78,30 +81,11 @@
                                     </a>
                                     {% if app.user.username is defined %}
                                         {% if app.user.username == challenge.creator %}
-                                            <button type="button" class="btn btn-danger btn-md sendCoords" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-remove"></span></button>
+                                            <button type="button" class="btn btn-danger" data-id="{{ challenge.id }}" data-name="{{ challenge.name }}" data-toggle="modal" data-target="#modalChallengeDelete"><span class="glyphicon glyphicon-remove"></span></button>
                                         {% endif %}
                                     {% else %}
                                     
                                     {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">DANGER ZONE</h4>
-                                </div>
-                                <div class="modal-body text-center">
-                                    You're about to delete the challenge "<b>{{ challenge.name }}</b>"<br>
-                                    Are you sure ?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-                                    <a href="{{path('challenge_delete', { 'id':challenge.id}) }}"><button type="button" class="btn btn-primary">Yes</button></a>
                                 </div>
                             </div>
                         </div>
@@ -111,5 +95,25 @@
             </div>
         </div>
     {% endif %}
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalChallengeDelete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">DANGER ZONE</h4>
+                </div>
+                <div class="messageBody modal-body text-center">
+                    You're about to delete the challenge "<b></b>"<br>
+                    Are you sure ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                    <a href="toto"><button type="button" class="btn btn-primary">Yes</button></a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     {% endblock %}
