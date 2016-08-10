@@ -74,11 +74,14 @@
                                 <p class="text-center">Challenge made by <b>{{ challenge.creator }}</b></p>
                                 <div class="text-center">
                                     <a href="{{path('game', { 'id': challenge.id })}}">
-                                        <button id="{{ challenge.id }}" type="button" class="btn btn-primary btn-md sendCoords" data-coords="{{ challenge.coords }}">Go to this challenge FFS !</button>
+                                        <button id="{{ challenge.id }}" type="button" class="btn btn-primary btn-md sendCoords" data-coords="{{ challenge.coords }}">Play <span class="glyphicon glyphicon-play"></span></button>
                                     </a>
+                                </div>
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-warning">Leave a note <span class="glyphicon glyphicon-star"></span></button>
                                     {% if app.user.username is defined %}
                                         {% if app.user.username == challenge.creator %}
-                                            <button type="button" class="btn btn-danger btn-md sendCoords" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-remove"></span></button>
+                                            <button type="button" class="btn btn-danger btn-md sendCoords" data-toggle="modal" data-target=".myModal"><span class="glyphicon glyphicon-remove"></span></button>
                                         {% endif %}
                                     {% else %}
                                     
@@ -88,7 +91,7 @@
                         </div>
                     </div>
                     <!-- Modal -->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal fade myModal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
