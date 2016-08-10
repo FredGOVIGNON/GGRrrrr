@@ -1,65 +1,85 @@
 {% extends 'base.html.twig' %}
+
     {% block extrajavascripts %}
-    <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+        <script type='text/javascript' src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js'></script>
+        {% javascripts '@AppBundle/Resources/public/js/*' %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        {% javascripts '@AppBundle/Resources/public/js/user/*' %}
+            <script src="{{ asset_url }}"></script>
+        {% endjavascripts %}  
     {% endblock %}
+
 {% block body %}
-    <div class='container'>
+    <div class='container showProfile'>
         <div class='jumbotron'>
             <h3>{{ user.username }}</h3>
             <table>
                 <tbody>
                     <tr>
-                        <th>Email</th>
+                        <th>Email :</th>
                         <td>{{ user.email }}</td>
                     </tr>
                     <tr>
-                        <th>Firstname</th>
+                        <th>Firstname :</th>
                         <td>{{ user.firstname }}</td>
                     </tr>
                     <tr>
-                        <th>Lasttname</th>
+                        <th>Lastname :</th>
                         <td>{{ user.lastname }}</td>
                     </tr>
                     <tr>
-                        <th>Birthdate</th>
+                        <th>Birthdate :</th>
                         <td>{{ user.birthdate }}</td>
                     </tr>
                     <tr>
-                        <th>Country</th>
+                        <th>Country :</th>
                         <td>{{ user.country }}</td>
                     </tr>
                 </tbody>
             </table>
             <div class='row'>
-                <div class='col-md-6'>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"><span class="glyphicon glyphicon-remove"></span></button>
-                </div>
-                <div class='col-md-6'>
-                    
+                <div class='col-md-12'>
+                    <button type="button" class="btn btn-danger" data-id="{{ app.user.id }}" data-toggle="modal" data-target="#modalDeleteProfile">Delete your profile</button>
+                    <button type="button" class="btn btn-primary" data-id="{{ app.user.id }}" data-toggle="modal" data-target="#modalEditProfile">Edit your profile</button>                    
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Modal -->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">DANGER ZONE</h4>
-                                </div>
-                                <div class="modal-body text-center">
-                                    You're about to delete the challenge <br>
-                                    Are you sure ?
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
-                                    <a href="{{path('user_delete', { 'id':user.id}) }}"><button type="button" class="btn btn-primary">Yes</button></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div class="modal fade" id="modalDeleteProfile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">DANGER ZONE</h4>
+                </div>
+                <div class="modal-body text-center">
+                    You're about to delete your user account ... <br>
+                    Are you sure ?
+                </div>
+                <div class="modal-footer">
+                    {{ form_start(delete_form, {'method': 'delete', 'action': path('user_delete', { 'id':user.id})}) }}
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">No</button>
+                        <button type="submit" class="btn btn-primary" value="Delete">Yes</button>
+                    {{ form_end(delete_form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modalEditProfile" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">EDIT ZONE</h4>
+                </div>
+                {{ render(controller('AppBundle:User:edit', {'id': user.id})) }}
+            </div>
+        </div>
+    </div>    
 
     <ul>
 {#         <li>

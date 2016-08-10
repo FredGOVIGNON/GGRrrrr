@@ -74,7 +74,12 @@
                                     {% endif %}
                                 {% endif %}
                                    
-                                <p class="text-center">Challenge made by <b>{{ challenge.creator }}</b></p>
+                                <p class="text-center">Challenge made by 
+                                    {% if challenge.creator == null %}
+                                        <b>Anonymous</b></p>
+                                    {% else %}
+                                        <b>{{ challenge.creator }}</b></p>
+                                    {% endif %}
                                 <div class="text-center">
                                     <a href="{{path('game', { 'id': challenge.id })}}">
                                         <button id="{{ challenge.id }}" type="button" class="btn btn-primary btn-md sendCoords" data-coords="{{ challenge.coords }}">Go to this challenge FFS !</button>

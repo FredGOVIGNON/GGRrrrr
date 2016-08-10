@@ -34,7 +34,7 @@ class Score
      * @var integer
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumn(name="gamer_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="gamer_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $idUser;
 

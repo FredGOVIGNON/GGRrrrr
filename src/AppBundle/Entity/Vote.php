@@ -33,7 +33,7 @@ class Vote
      * @var integer
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumn(name="gamer_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="gamer_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $userId;
 
@@ -53,52 +53,6 @@ class Vote
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set challengeId
-     *
-     * @param integer $challengeId
-     * @return Vote
-     */
-    public function setChallengeId($challengeId)
-    {
-        $this->challengeId = $challengeId;
-
-        return $this;
-    }
-
-    /**
-     * Get challengeId
-     *
-     * @return integer 
-     */
-    public function getChallengeId()
-    {
-        return $this->challengeId;
-    }
-
-    /**
-     * Set userId
-     *
-     * @param integer $userId
-     * @return Vote
-     */
-    public function setUserId($userId)
-    {
-        $this->userId = $userId;
-
-        return $this;
-    }
-
-    /**
-     * Get userId
-     *
-     * @return integer 
-     */
-    public function getUserId()
-    {
-        return $this->userId;
     }
 
     /**
@@ -122,5 +76,51 @@ class Vote
     public function getVote()
     {
         return $this->vote;
+    }
+
+    /**
+     * Set challengeId
+     *
+     * @param \AppBundle\Entity\Challenge $challengeId
+     * @return Vote
+     */
+    public function setChallengeId(\AppBundle\Entity\Challenge $challengeId = null)
+    {
+        $this->challengeId = $challengeId;
+
+        return $this;
+    }
+
+    /**
+     * Get challengeId
+     *
+     * @return \AppBundle\Entity\Challenge 
+     */
+    public function getChallengeId()
+    {
+        return $this->challengeId;
+    }
+
+    /**
+     * Set userId
+     *
+     * @param \AppBundle\Entity\User $userId
+     * @return Vote
+     */
+    public function setUserId(\AppBundle\Entity\User $userId = null)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get userId
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getUserId()
+    {
+        return $this->userId;
     }
 }

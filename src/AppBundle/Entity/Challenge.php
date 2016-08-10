@@ -32,7 +32,7 @@ class Challenge
      * @var integer
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
-     * @ORM\JoinColumn(name="creator", referencedColumnName="id")
+     * @ORM\JoinColumn(name="creator", referencedColumnName="id", onDelete="SET NULL")
      */
     private $creator;
 
@@ -42,6 +42,7 @@ class Challenge
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+    
 
     /**
      * Get id

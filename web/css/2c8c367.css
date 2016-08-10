@@ -6901,6 +6901,9 @@ label {
 	font-weight: 200; 
 	padding-right: 1em;
 }
+.showProfile {
+	padding-top: 70px;
+}
 .zoneMap{
 	height: 100vh;
 }

@@ -23,42 +23,52 @@ class UserController extends Controller
      * @Route("/{id}", name="user_show")
      * @Method("GET")
      */
-    public function showAction(User $user)
+    public function showAction(Request $request, User $user)
     {
-        $deleteForm = $this->createDeleteForm($user);
 
-        return $this->render('user/show.html.twig', array(
-            'user' => $user,
-            'delete_form' => $deleteForm->createView(),
-        ));
+        $currentUserId = $this->getUser()->getid();
+        $wishUserId = $user->getid();
+
+        if ($wishUserId != $currentUserId){
+            return $this->render('user/errorShow.html.twig');
+        }else{
+            $deleteForm = $this->createDeleteForm($user);
+
+            return $this->render('user/show.html.twig', array(
+                'user' => $user,
+                'delete_form' => $deleteForm->createView(),
+            ));
+        }
+
     }
 
-    // /**
-    //  * Displays a form to edit an existing Vote entity.
-    //  *
-    //  * @Route("/{id}/edit", name="vote_edit")
-    //  * @Method({"GET", "POST"})
-    //  */
-    // public function editAction(Request $request, Vote $vote)
-    // {
-    //     $deleteForm = $this->createDeleteForm($vote);
-    //     $editForm = $this->createForm('AppBundle\Form\VoteType', $vote);
-    //     $editForm->handleRequest($request);
+    /**
+     * Displays a form to edit an existing User entity.
+     *
+     * @Route("/{id}/edit", name="user_edit")
+     * @Method({"POST"})
+     */
+    public function editAction(Request $request, User $user)
+    {
+        // dump($request);die;
 
-    //     if ($editForm->isSubmitted() && $editForm->isValid()) {
-    //         $em = $this->getDoctrine()->getManager();
-    //         $em->persist($vote);
-    //         $em->flush();
+        $editForm = $this->createForm('AppBundle\Form\UserType', $user);
+        $editForm->handleRequest($request);
 
-    //         return $this->redirectToRoute('vote_edit', array('id' => $vote->getId()));
-    //     }
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($user);
+            $em->flush();
 
-    //     return $this->render('vote/edit.html.twig', array(
-    //         'vote' => $vote,
-    //         'edit_form' => $editForm->createView(),
-    //         'delete_form' => $deleteForm->createView(),
-    //     ));
-    // }
+            return $this->redirectToRoute('user_show', array('id' => $user->getId()));
+        }
+
+        return $this->render('user/edit.html.twig', array(
+                'edit_form' => $editForm->createView(),
+                'user' => $user,
+            ));
+
+    }
 
     /**
      * Deletes a User entity.

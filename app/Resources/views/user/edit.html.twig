@@ -1,0 +1,7 @@
+<div class="modal-body text-center">
+    {{ form_start(edit_form, {'attr': {'class': 'editProfileForm'}, 'method': 'post', 'action': path('user_edit', { 'id':user.id})}) }}
+    {{ form_end(edit_form) }}
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary editProfile">Valid</button>
+</div>

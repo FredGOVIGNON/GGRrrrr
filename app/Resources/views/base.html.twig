@@ -25,6 +25,7 @@
                   <ul class="nav navbar-nav navbar-right">
                     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
                     <li><a>Welcome <b>{{ app.user.username }}</b></a></li>
+                    <li><a href="{{ path('user_show', {'id': app.user.id}) }}">Your profile</a></li> 
                     <li><a href="{{ path('fos_user_security_logout') }}">Logout</a></li> 
                     {% else %}
                     <li><a href="{{ path('fos_user_security_login') }}">Login</a></li>
