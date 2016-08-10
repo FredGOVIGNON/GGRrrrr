@@ -17,9 +17,12 @@ Développement des fonctionnalités suivantes lors du hackaton :
 - noter un challenge
 - voir les scores des différents gamers pour chaque challenge
 
-Installation d'assetic nécessaire
-$>composer require symfony/assetic-bundle
 
+Installation d'assetic nécessaire
+composer require symfony/assetic-bundle
+
+Pour pousser vers web les assets du dossier Bundle/Resources/public
+php app/console assets:install web --symlink
 
 Pour avoir le rendu en prod il faut exporter en dur les assets
 php app/console assetic:dump --env=prod
